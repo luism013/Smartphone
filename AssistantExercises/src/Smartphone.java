@@ -9,14 +9,12 @@ public class Smartphone {
 	private String brand;
 	private String model;
 	private int price;
-	private boolean isAvailable;
 	
 	public Smartphone(String brand, String model, int price, boolean isAvailable) {
 		super();
 		this.brand = brand;
 		this.model = model;
 		this.price = price;
-		this.isAvailable = isAvailable;
 	}
 	
 	@Override
@@ -47,10 +45,6 @@ public class Smartphone {
 		return price;
 	}
 	
-	public boolean getAvailability() {
-		return isAvailable;
-	}
-	
 	// returns the amount of smartphones of a specific brand in the array
 	public int countByPhoneBrand(Smartphone[] stock, Smartphone target) {
 		int counter = 0;
@@ -62,13 +56,11 @@ public class Smartphone {
 	}
 	
 	// returns true if the specific desired phone is available in stock
-	public boolean findSpecificPhone(Smartphone[] stock, Smartphone target) {
-		if(getAvailability()) {
+	public boolean isAvailable(Smartphone[] stock, Smartphone target) {
 			for (int i = 0; i < stock.length; i++) {
 				if(stock[i].equals(target))
 					return true;
 			}
-		}
 		return false;
 	}
 	
@@ -102,16 +94,14 @@ public class Smartphone {
 	}
 	
 	// returns the specific model from a specific brand that the customer is looking for.
-	// returns null if the desired model does not exist. Must stop looking as soon as the model is found
+	// returns null if the desired model does is not in stock. Must stop looking as soon as the model is found
 	public Smartphone findModel(Smartphone[] stock, Smartphone target) {
 		Smartphone model = null;
-		if(getAvailability()) {
 			for (int i = 0; i < stock.length; i++) {
 				if(stock[i].getBrand().equals(target.getBrand())
 						&& stock[i].getModel().equals(target.getModel())) {
 					model = stock[i];
 					break;
-				}
 			}
 		}
 		return model;
@@ -119,16 +109,17 @@ public class Smartphone {
 	
 	//returns true iff there are two variants of the same model in stock. Must stop as soon as the pair is found.
 	public boolean twoSameModelsExist(Smartphone stock[]) {
-		boolean condition = false;
+//		boolean condition = false;
 		for (int i = 0; i < stock.length; i++) {
-			for (int j = 0; j < stock.length; j++) {
+			for (int j = i+1; j < stock.length; j++) {
 				if(stock[i].getModel().equals(stock[j])) {
-					condition = true;
-					break;
+//					condition = true;
+//					break;
+					return true;
 				}
 			}
 		}
-		return condition;
+		return false;
 	}
 	
 	// returns the phone to be bought by the customer. 
